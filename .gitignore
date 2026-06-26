@@ -41,6 +41,11 @@ obj/
 .DS_Store
 Thumbs.db
 
+# ---------- Unity 生成的工程/解决方案文件 ----------
+*.csproj
+*.sln
+*.vsconfig
+
 # ---------- env / secrets ----------
 .env
 *.local.env
