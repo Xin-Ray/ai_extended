@@ -14,7 +14,8 @@ from app.services.resolver import ResolvedObject
 USE_OLLAMA = os.getenv("USE_OLLAMA", "0") == "1"
 OLLAMA_URL = os.getenv("OLLAMA_URL", "http://localhost:11434")
 OLLAMA_MODEL = os.getenv("OLLAMA_MODEL", "qwen3:4b")
-OLLAMA_TIMEOUT = float(os.getenv("OLLAMA_TIMEOUT", "20"))
+OLLAMA_TIMEOUT = float(os.getenv("OLLAMA_TIMEOUT", "30"))
+OLLAMA_KEEP_ALIVE = os.getenv("OLLAMA_KEEP_ALIVE", "10m")
 
 
 def _template_explain(obj: ResolvedObject) -> str:
@@ -33,7 +34,17 @@ async def _ollama_explain(obj: ResolvedObject) -> str:
         async with httpx.AsyncClient(timeout=OLLAMA_TIMEOUT) as client:
             resp = await client.post(
                 f"{OLLAMA_URL}/api/generate",
-                json={"model": OLLAMA_MODEL, "prompt": prompt, "stream": False},
+                json={
+                    "model": OLLAMA_MODEL,
+                    "prompt": prompt,
+                    "stream": False,
+                    # qwen3 等模型默认开 thinking，会狂想几十秒。AR 要实时，关掉。
+                    "think": False,
+                    # 让模型常驻显存，避免每次请求冷载入。
+                    "keep_alive": OLLAMA_KEEP_ALIVE,
+                    # 短句即可，限制输出长度进一步压低延迟。
+                    "options": {"num_predict": 60},
+                },
             )
             resp.raise_for_status()
             text = (resp.json().get("response") or "").strip()
