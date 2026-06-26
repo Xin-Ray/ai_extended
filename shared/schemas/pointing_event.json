@@ -1,0 +1,23 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "pointing_event",
+  "description": "Quest 客户端 -> 后端。用户食指指向一个（虚拟）物体时上报。V0 不含图像；camera_* 字段为 Quest 3 预留的可选扩展。",
+  "type": "object",
+  "required": ["type", "session_id", "timestamp_ms", "target_id"],
+  "additionalProperties": false,
+  "properties": {
+    "type":          { "const": "pointing_event" },
+    "session_id":    { "type": "string", "description": "一次演示/会话的标识，例如 demo_001" },
+    "timestamp_ms":  { "type": "integer", "description": "客户端发出时的 Unix 毫秒时间戳" },
+    "target_id":     { "type": "string", "description": "命中的物体 id，对应后端注册表与 Unity ObjectMetadata.targetId，例如 cup_01" },
+    "target_label":  { "type": "string", "description": "可选，客户端已知的标签，例如 cup（后端会以注册表为准）" },
+    "ray_origin":    { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3, "description": "食指射线起点 [x,y,z]（世界坐标，米）" },
+    "ray_direction": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3, "description": "食指射线方向 [x,y,z]（单位向量）" },
+
+    "camera_frame_id":   { "type": "string", "description": "[Quest3 预留] 关联的相机帧 id" },
+    "camera_intrinsics": { "type": "object", "description": "[Quest3 预留] 相机内参" },
+    "camera_pose":       { "type": "object", "description": "[Quest3 预留] 相机位姿" },
+    "image_width":       { "type": "integer", "description": "[Quest3 预留] 帧宽" },
+    "image_height":      { "type": "integer", "description": "[Quest3 预留] 帧高" }
+  }
+}

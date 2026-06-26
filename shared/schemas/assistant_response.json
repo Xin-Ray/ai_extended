@@ -1,0 +1,17 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "assistant_response",
+  "description": "后端 -> Quest 客户端。对一次 pointing_event 的回应：一句解释 + 显示文案 + Avatar/TTS 提示。",
+  "type": "object",
+  "required": ["type", "target_id", "speech"],
+  "additionalProperties": false,
+  "properties": {
+    "type":            { "const": "assistant_response" },
+    "target_id":       { "type": "string", "description": "回应对应的物体 id，回显请求的 target_id" },
+    "speech":          { "type": "string", "description": "要 TTS 播报的完整句子" },
+    "display_title":   { "type": "string", "description": "UI 主标题，例如 Blue ceramic mug" },
+    "display_subtitle":{ "type": "string", "description": "UI 副标题，例如 Virtual desk object" },
+    "avatar_intent":   { "type": "string", "enum": ["none", "look_and_point", "look"], "description": "Avatar 动作意图（V0 可忽略，V4 用）" },
+    "tts_mode":        { "type": "string", "enum": ["local", "server"], "description": "TTS 在哪播。V0 用 local（Android 端 TTS）" }
+  }
+}

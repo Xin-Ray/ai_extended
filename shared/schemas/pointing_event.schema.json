@@ -1,0 +1,28 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "pointing_event",
+  "title": "PointingEvent",
+  "description": "客户端 → 后端：一次指向事件。V0 只携带 target_id。Quest 3 相机字段为预留扩展，V0 不实现、不依赖。",
+  "type": "object",
+  "required": ["type", "version", "target_id"],
+  "properties": {
+    "type": { "const": "pointing_event" },
+    "version": { "type": "string", "description": "协议版本，V0 为 \"0\"" },
+    "session_id": { "type": "string", "description": "会话标识，可选" },
+    "target_id": { "type": "string", "description": "命中虚拟物体 id，须与 resolver 注册表一一对应，如 cup_01" },
+    "timestamp": { "type": "number", "description": "客户端毫秒时间戳，可选" },
+    "ray": {
+      "type": "object",
+      "description": "【预留扩展，V0 不实现】食指射线，用于将来真实命中解算",
+      "properties": {
+        "origin": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 },
+        "direction": { "type": "array", "items": { "type": "number" }, "minItems": 3, "maxItems": 3 }
+      }
+    },
+    "camera": {
+      "type": "object",
+      "description": "【预留扩展，Quest 3 RGB，V0 不实现】不要在 V0 改动上方已有字段"
+    }
+  },
+  "additionalProperties": false
+}

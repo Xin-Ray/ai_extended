@@ -1,0 +1,44 @@
+# ---------- Python ----------
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+venv/
+env/
+.pytest_cache/
+.mypy_cache/
+*.log
+
+# ---------- .NET / C# ----------
+bin/
+obj/
+*.user
+*.suo
+
+# ---------- Unity ----------
+quest-client-unity/[Ll]ibrary/
+quest-client-unity/[Tt]emp/
+quest-client-unity/[Oo]bj/
+quest-client-unity/[Bb]uild/
+quest-client-unity/[Bb]uilds/
+quest-client-unity/[Ll]ogs/
+quest-client-unity/[Uu]ser[Ss]ettings/
+quest-client-unity/[Mm]emoryCaptures/
+quest-client-unity/[Rr]ecordings/
+*.apk
+*.aab
+*.unitypackage
+# 保留 .meta 文件（Unity 资产引用需要）
+
+# ---------- IDE / OS ----------
+.vs/
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+.DS_Store
+Thumbs.db
+
+# ---------- env / secrets ----------
+.env
+*.local.env
