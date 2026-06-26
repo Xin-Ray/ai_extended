@@ -1,5 +1,6 @@
 {
   "dependencies": {
+    "com.coplaydev.unity-mcp": "https://github.com/CoplayDev/unity-mcp.git?path=/MCPForUnity#main",
     "com.unity.xr.interaction.toolkit": "3.5.1",
     "com.unity.xr.openxr": "1.17.1",
     "com.unity.ai.navigation": "2.0.13",
