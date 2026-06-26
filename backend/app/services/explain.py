@@ -19,8 +19,10 @@ OLLAMA_KEEP_ALIVE = os.getenv("OLLAMA_KEEP_ALIVE", "10m")
 
 
 def _template_explain(obj: ResolvedObject) -> str:
-    """固定模板：This is a {title}. {description}"""
-    return f"This is a {obj.display_title.lower()}. {obj.description}"
+    """固定模板：优先用种子文件里人工审阅过的 tts_text，缺失时回退拼接。"""
+    if obj.tts_text:
+        return obj.tts_text
+    return f"This is a {obj.display_title.lower()}. {obj.short_explanation}"
 
 
 async def _ollama_explain(obj: ResolvedObject) -> str:

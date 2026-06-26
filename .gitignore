@@ -15,16 +15,18 @@ obj/
 *.user
 *.suo
 
-# ---------- Unity ----------
-quest-client-unity/[Ll]ibrary/
-quest-client-unity/[Tt]emp/
-quest-client-unity/[Oo]bj/
-quest-client-unity/[Bb]uild/
-quest-client-unity/[Bb]uilds/
-quest-client-unity/[Ll]ogs/
-quest-client-unity/[Uu]ser[Ss]ettings/
-quest-client-unity/[Mm]emoryCaptures/
-quest-client-unity/[Rr]ecordings/
+# ---------- Unity（生成目录，匹配仓库内任意位置）----------
+# 用 ** 前缀，无论 Unity 项目建在 quest-client-unity/ 还是其子目录都能命中
+**/[Ll]ibrary/
+**/[Tt]emp/
+**/[Oo]bj/
+**/[Bb]uild/
+**/[Bb]uilds/
+**/[Ll]ogs/
+**/[Uu]ser[Ss]ettings/
+**/[Mm]emoryCaptures/
+**/[Rr]ecordings/
+**/[Aa]ssets/AssetStoreTools*
 *.apk
 *.aab
 *.unitypackage

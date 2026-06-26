@@ -1,11 +1,13 @@
-"""V0 虚拟物体注册表：target_id -> 标签 / 描述 / 显示文案。
+"""V0 虚拟物体注册表：从 shared/objects.json 种子文件加载。
 
-这些 id 必须与 Unity 里挂的 ObjectMetadata.targetId 一一对应。
+target_id 必须与 Unity 里挂的 ObjectMetadata.targetId 一一对应。
 V1（Quest 3 + YOLO）会用真实检测结果替换这一步，但 resolver 的输出契约不变。
 """
 from __future__ import annotations
 
+import json
 from dataclasses import dataclass
+from pathlib import Path
 from typing import Optional
 
 
@@ -13,49 +15,41 @@ from typing import Optional
 class ResolvedObject:
     target_id: str
     label: str
-    description: str
     display_title: str
+    short_explanation: str
+    tts_text: str
     display_subtitle: str = "Virtual object"
+    scene_location: str = ""
+
+    @property
+    def description(self) -> str:
+        """向后兼容旧字段名。"""
+        return self.short_explanation
 
 
-# V0 内置的 5 个演示物体
-_REGISTRY: dict[str, ResolvedObject] = {
-    "cup_01": ResolvedObject(
-        target_id="cup_01",
-        label="cup",
-        description="It is usually used for hot drinks.",
-        display_title="Blue ceramic mug",
-        display_subtitle="Virtual desk object",
-    ),
-    "laptop_01": ResolvedObject(
-        target_id="laptop_01",
-        label="laptop",
-        description="It is used for work, coding, and browsing the web.",
-        display_title="Laptop computer",
-        display_subtitle="Virtual desk object",
-    ),
-    "bottle_01": ResolvedObject(
-        target_id="bottle_01",
-        label="bottle",
-        description="It holds water to keep you hydrated.",
-        display_title="Water bottle",
-        display_subtitle="Virtual desk object",
-    ),
-    "plant_01": ResolvedObject(
-        target_id="plant_01",
-        label="plant",
-        description="It is a decorative plant that brightens the room.",
-        display_title="Potted plant",
-        display_subtitle="Virtual floor object",
-    ),
-    "monitor_01": ResolvedObject(
-        target_id="monitor_01",
-        label="monitor",
-        description="It displays the image from your computer.",
-        display_title="Computer monitor",
-        display_subtitle="Virtual desk object",
-    ),
-}
+# 种子文件：仓库根的 shared/objects.json（相对本文件 ../../../../shared/objects.json）
+_SEED_PATH = Path(__file__).resolve().parents[3] / "shared" / "objects.json"
+
+
+def _load_registry() -> dict[str, ResolvedObject]:
+    with _SEED_PATH.open("r", encoding="utf-8") as f:
+        data = json.load(f)
+    registry: dict[str, ResolvedObject] = {}
+    for o in data.get("objects", []):
+        obj = ResolvedObject(
+            target_id=o["target_id"],
+            label=o["label"],
+            display_title=o["display_title"],
+            short_explanation=o.get("short_explanation", ""),
+            tts_text=o.get("tts_text", ""),
+            display_subtitle=o.get("display_subtitle", "Virtual object"),
+            scene_location=o.get("scene_location", ""),
+        )
+        registry[obj.target_id] = obj
+    return registry
+
+
+_REGISTRY: dict[str, ResolvedObject] = _load_registry()
 
 
 def resolve(target_id: str) -> Optional[ResolvedObject]:

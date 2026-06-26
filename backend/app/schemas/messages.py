@@ -33,6 +33,7 @@ class AssistantResponse(BaseModel):
     speech: str
     display_title: Optional[str] = None
     display_subtitle: Optional[str] = None
+    status: Literal["ok", "error"] = "ok"
     avatar_intent: Literal["none", "look_and_point", "look"] = "look_and_point"
     tts_mode: Literal["local", "server"] = "local"
 

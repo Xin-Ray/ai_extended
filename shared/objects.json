@@ -1,0 +1,50 @@
+{
+  "_comment": "V0 虚拟物体目录（单一事实来源）。后端 resolver 读取本文件；Unity 里 ObjectMetadata.targetId 必须与这里的 target_id 逐字一致。",
+  "objects": [
+    {
+      "target_id": "cup_01",
+      "label": "cup",
+      "display_title": "Blue ceramic mug",
+      "display_subtitle": "Virtual desk object",
+      "short_explanation": "It is usually used for hot drinks.",
+      "tts_text": "This is a blue ceramic mug. It is usually used for hot drinks.",
+      "scene_location": "on the desk"
+    },
+    {
+      "target_id": "laptop_01",
+      "label": "laptop",
+      "display_title": "Laptop computer",
+      "display_subtitle": "Virtual desk object",
+      "short_explanation": "It is used for work, coding, and browsing the web.",
+      "tts_text": "This is a laptop computer. It is used for work, coding, and browsing the web.",
+      "scene_location": "on the desk"
+    },
+    {
+      "target_id": "bottle_01",
+      "label": "bottle",
+      "display_title": "Water bottle",
+      "display_subtitle": "Virtual desk object",
+      "short_explanation": "It holds water to keep you hydrated.",
+      "tts_text": "This is a water bottle. It holds water to keep you hydrated.",
+      "scene_location": "on the desk"
+    },
+    {
+      "target_id": "plant_01",
+      "label": "plant",
+      "display_title": "Potted plant",
+      "display_subtitle": "Virtual floor object",
+      "short_explanation": "It is a decorative plant that brightens the room.",
+      "tts_text": "This is a potted plant. It is a decorative plant that brightens the room.",
+      "scene_location": "on the floor near the desk"
+    },
+    {
+      "target_id": "monitor_01",
+      "label": "monitor",
+      "display_title": "Computer monitor",
+      "display_subtitle": "Virtual desk object",
+      "short_explanation": "It displays the image from your computer.",
+      "tts_text": "This is a computer monitor. It displays the image from your computer.",
+      "scene_location": "on the desk"
+    }
+  ]
+}

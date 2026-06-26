@@ -28,6 +28,7 @@ namespace QuestSpatialAssistant.Networking
         public string speech;
         public string display_title;
         public string display_subtitle;
+        public string status;        // "ok" / "error"
         public string avatar_intent;
         public string tts_mode;
     }
